@@ -34,3 +34,11 @@ spring:
   jwt:
     secret: ${JWT_SECRET:"8GEHfJdlzjDCIUtT/ZmeVxjX5DWIHkT11dA5GkMdVTcZOnYOY/0Eta6pfyUIkswFfHuDH1fx7RsoimOL+AUPCDgwOQpHWlj/qzaBG9c+khcvAInBdwGzg+K4SC99ZER2ewUwRYUurl0uuXUTzWAmgCvnGLm4QXtGgR+DTn9DWAj7pAe5zbD1LG1DCiVthoId}
     expiration: 1800000 # 30 minutes
+
+  mvc:
+    servlet:
+      path: /api
+
+springdoc:
+  swagger-ui:
+    path: /docs
