@@ -1,21 +1,22 @@
-package br.com.github.williiansilva51.linkr.model;
+package br.com.github.williiansilva51.linkr.database.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "Domain")
-public class Domain {
-    @Column(unique = true, nullable = false)
-    String domainUrl;
+public class DomainEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(unique = true, nullable = false)
+    private String domainUrl;
 }
