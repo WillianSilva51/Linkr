@@ -3,9 +3,11 @@ package br.com.github.williiansilva51.linkr.service;
 import br.com.github.williiansilva51.linkr.config.TokenProvider;
 import br.com.github.williiansilva51.linkr.dto.request.auth.AuthRequest;
 import br.com.github.williiansilva51.linkr.dto.request.user.CreateUserRequest;
+import br.com.github.williiansilva51.linkr.dto.response.token.TokenResponse;
 import br.com.github.williiansilva51.linkr.dto.response.user.UserResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,16 +22,21 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final TokenProvider tokenProvider;
 
+    @Value("${spring.jwt.expiration}")
+    private long expirationTime;
+
     public UserResponse register(CreateUserRequest request) {
         return userService.createUser(request);
     }
 
-    public String login(AuthRequest request) {
+    public TokenResponse login(AuthRequest request) {
         try {
             Authentication authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
-            return tokenProvider.generateToken(authentication);
+            String token = tokenProvider.generateToken(authentication);
+            
+            return new TokenResponse(token, expirationTime);
         } catch (BadCredentialsException e) {
             log.debug("Invalid credentials: {}", e.getMessage());
             throw new BadCredentialsException("Invalid credentials");

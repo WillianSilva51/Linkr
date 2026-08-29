@@ -7,6 +7,7 @@ import br.com.github.williiansilva51.linkr.database.repository.UserRepository;
 import br.com.github.williiansilva51.linkr.dto.request.user.CreateUserRequest;
 import br.com.github.williiansilva51.linkr.dto.response.user.UserResponse;
 import br.com.github.williiansilva51.linkr.enums.RolesType;
+import br.com.github.williiansilva51.linkr.handler.exceptions.RoleNotFoundException;
 import br.com.github.williiansilva51.linkr.handler.exceptions.UserAlreadyExistsException;
 import br.com.github.williiansilva51.linkr.handler.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +29,7 @@ public class UserService {
         }
 
         RolesEntity roles = rolesRepository.findByName(RolesType.USER.name())
-                .orElseGet(() -> rolesRepository.save(RolesEntity.builder()
-                        .name(RolesType.USER.name())
-                        .build()));
+                .orElseThrow(() -> new RoleNotFoundException("Role not found"));
 
         UserEntity userEntity = UserEntity.builder()
                 .name(request.getName())

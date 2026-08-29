@@ -2,6 +2,7 @@ package br.com.github.williiansilva51.linkr.controller;
 
 import br.com.github.williiansilva51.linkr.dto.request.auth.AuthRequest;
 import br.com.github.williiansilva51.linkr.dto.request.user.CreateUserRequest;
+import br.com.github.williiansilva51.linkr.dto.response.token.TokenResponse;
 import br.com.github.williiansilva51.linkr.dto.response.user.UserResponse;
 import br.com.github.williiansilva51.linkr.service.AuthenticationService;
 import jakarta.validation.Valid;
@@ -25,7 +26,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid @RequestBody AuthRequest request) {
+    public TokenResponse login(@Valid @RequestBody AuthRequest request) {
         return authenticationService.login(request);
     }
 }
