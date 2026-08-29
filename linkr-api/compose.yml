@@ -6,6 +6,8 @@ services:
       POSTGRES_DB: ${DB_NAME:-linkr}
       POSTGRES_USER: ${DB_USER:-linkr}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-CHANGEME}
+    ports:
+      - "5432:5432"
     volumes:
       - linkr-data:/var/lib/postgresql/data:Z
     healthcheck:

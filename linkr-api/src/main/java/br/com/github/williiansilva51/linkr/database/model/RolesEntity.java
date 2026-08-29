@@ -22,10 +22,10 @@ public class RolesEntity implements GrantedAuthority {
     private Integer id;
 
     @Column(unique = true, nullable = false)
-    private String role;
+    private String name;
 
     @Override
     public @Nullable String getAuthority() {
-        return role;
+        return name;
     }
 }
