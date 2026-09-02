@@ -4,19 +4,33 @@ title: Encurtador de URL
 ---
 
 erDiagram
-    direction LR
+    direction TB
 
     User ||--o{ Link: Possui
     Domain ||--o{ Link: Hospeda
     Link ||--o{ Click: Possui
     Link ||--o{ LinkTag: possui
     Tag ||--o{ LinkTag: possui
+    UserRole ||--o{ User: Possui
+    Role ||--o{ UserRole: Possui
+    User ||--o{ Tag: Possui
 
     User {
-        Int id PK
+        String id PK
         String name UK
         String email UK
         String password
+    }
+
+    Role {
+        String id PK
+        String name UK
+    }
+
+    UserRole {
+        String id PK
+        String userId FK
+        String roleId FK
     }
 
     Link {
