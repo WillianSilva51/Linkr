@@ -21,15 +21,15 @@ public class ClickEntity {
     private long id;
 
     @Column(nullable = false)
-    LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(nullable = false, length = 50)
-    String country;
+    private String country;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     String userAgent;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     String referer;
 
     @ManyToOne

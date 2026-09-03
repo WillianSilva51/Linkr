@@ -45,7 +45,7 @@ public class LinkEntity {
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<TagEntity> tags = new HashSet<>();
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private URL destinationUrl;
 
     @Column(nullable = false)

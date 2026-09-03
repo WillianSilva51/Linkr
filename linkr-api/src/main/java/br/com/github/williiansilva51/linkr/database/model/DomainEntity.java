@@ -17,6 +17,6 @@ public class DomainEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true, nullable = false, length = 30)
+    @Column(unique = true, nullable = false, length = 50)
     private String domainUrl;
 }
