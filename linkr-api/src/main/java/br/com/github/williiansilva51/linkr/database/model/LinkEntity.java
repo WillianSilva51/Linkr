@@ -12,7 +12,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Link", uniqueConstraints = @UniqueConstraint(name = "uk_domain_backhalf", columnNames = {"domain.id", "backHalf"}))
+@Table(name = "Link",
+        uniqueConstraints = @UniqueConstraint(name = "uk_domain_backhalf", columnNames = {"domain_id", "back_half"}),
+        indexes = @Index(name = "idx_user_id", columnList = "user_id")
+)
 @Getter
 @Builder
 @NoArgsConstructor

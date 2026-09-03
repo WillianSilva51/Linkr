@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Click")
+@Table(name = "Click",
+        indexes = @Index(name = "idx_link_id_created_at", columnList = "link_id, created_at"))
 @Getter
 @Builder
 @NoArgsConstructor
