@@ -1,31 +1,27 @@
 package br.com.github.williiansilva51.linkr.database.model;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.Nullable;
-import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-@Table(name = "Role")
+@Table(name = "Tag",
+        uniqueConstraints = @UniqueConstraint(name = "uk_user_tag_name", columnNames = {"name", "user_id"}))
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RolesEntity implements GrantedAuthority {
-
+public class TagEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false, length = 50)
     private String name;
 
-    @Override
-    public @Nullable String getAuthority() {
-        return name;
-    }
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 }

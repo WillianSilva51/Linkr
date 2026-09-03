@@ -13,16 +13,16 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "Users")
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "Users")
 public class UserEntity implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Column(nullable = false, length = 40)
     private String name;
