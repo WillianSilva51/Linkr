@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 
+@Entity
+@Table(name = "Role")
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Entity
-@Table(name = "Roles")
 public class RolesEntity implements GrantedAuthority {
 
     @Id

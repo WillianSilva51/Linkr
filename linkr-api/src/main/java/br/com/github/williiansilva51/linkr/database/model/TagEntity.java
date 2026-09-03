@@ -2,12 +2,14 @@ package br.com.github.williiansilva51.linkr.database.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Tag")
+@Table(name = "Tag", uniqueConstraints = @UniqueConstraint(name = "uk_user_tag_name", columnNames = {"name", "user_id"}))
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class TagEntity {
@@ -15,7 +17,7 @@ public class TagEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(unique = true, nullable = false, length = 50)
+    @Column(nullable = false, length = 50)
     private String name;
 
     @ManyToOne

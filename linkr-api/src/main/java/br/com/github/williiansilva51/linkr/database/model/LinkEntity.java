@@ -2,6 +2,7 @@ package br.com.github.williiansilva51.linkr.database.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,10 +12,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Link")
+@Table(name = "Link", uniqueConstraints = @UniqueConstraint(name = "uk_domain_backhalf", columnNames = {"domain.id", "backHalf"}))
 @Getter
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class LinkEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,11 +33,11 @@ public class LinkEntity {
     private UserEntity user;
 
     @ManyToOne
-    @JoinColumn(name = "Domain_id", nullable = false)
+    @JoinColumn(name = "domain_id", nullable = false)
     private DomainEntity domain;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "Link_Tags",
+    @JoinTable(name = "link_tags",
             joinColumns = @JoinColumn(name = "link_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<TagEntity> tags = new HashSet<>();

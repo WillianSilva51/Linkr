@@ -2,6 +2,7 @@ package br.com.github.williiansilva51.linkr.database.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "Click")
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClickEntity {

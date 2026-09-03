@@ -54,6 +54,7 @@ erDiagram
         Int id PK
         String name UK
     }
+    %% Constraint: UNIQUE(userId, name)
 
     LinkTag {
         Int linkId PK, FK

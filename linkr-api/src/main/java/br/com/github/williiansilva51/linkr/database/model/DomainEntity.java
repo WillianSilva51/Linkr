@@ -6,12 +6,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name = "Domain")
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "Domain")
 public class DomainEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

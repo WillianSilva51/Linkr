@@ -13,12 +13,12 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "Users")
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "Users")
 public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
