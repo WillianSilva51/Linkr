@@ -39,7 +39,7 @@ erDiagram
         String userId FK
         Int domainId FK
         String title
-        String backHalf "Pose ser criado aleatóriamente ou inserido"
+        String backHalf "Pode ser criado aleatóriamente ou inserido"
         String destinationUrl
         Date createdAt
         Date updatedAt
