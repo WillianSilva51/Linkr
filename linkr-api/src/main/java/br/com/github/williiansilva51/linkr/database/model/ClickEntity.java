@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class ClickEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();

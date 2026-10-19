@@ -7,6 +7,7 @@ import br.com.github.williiansilva51.linkr.dto.response.user.UserResponse;
 import br.com.github.williiansilva51.linkr.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,12 +22,16 @@ public class AuthController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public UserResponse register(@Valid @RequestBody CreateUserRequest request) {
-        return authenticationService.register(request);
+    public ResponseEntity<UserResponse> register(@Valid @RequestBody CreateUserRequest request) {
+        UserResponse userResponse = authenticationService.register(request);
+
+        return ResponseEntity.ok(userResponse);
     }
 
     @PostMapping("/login")
-    public TokenResponse login(@Valid @RequestBody AuthRequest request) {
-        return authenticationService.login(request);
+    public ResponseEntity<TokenResponse> login(@Valid @RequestBody AuthRequest request) {
+        TokenResponse tokenResponse = authenticationService.login(request);
+
+        return ResponseEntity.ok(tokenResponse);
     }
 }

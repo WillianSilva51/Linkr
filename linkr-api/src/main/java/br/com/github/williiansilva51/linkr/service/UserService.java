@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -24,7 +25,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public UserResponse createUser(CreateUserRequest request) {
-        if (userRepository.existsByEmail(request.getEmail())) {
+        if (userRepository.existsByEmail(request.email())) {
             throw new UserAlreadyExistsException("Email already exists");
         }
 
@@ -32,9 +33,9 @@ public class UserService {
                 .orElseThrow(() -> new RoleNotFoundException("Role not found"));
 
         UserEntity userEntity = UserEntity.builder()
-                .name(request.getName())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .name(request.name())
+                .email(request.email())
+                .password(passwordEncoder.encode(request.password()))
                 .roles(Set.of(roles))
                 .build();
 
@@ -43,7 +44,7 @@ public class UserService {
         return new UserResponse(userEntity.getId(), userEntity.getName(), userEntity.getEmail());
     }
 
-    public UserResponse findUserById(Integer id) {
+    public UserResponse findUserById(UUID id) {
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 

@@ -19,7 +19,7 @@ erDiagram
 
     User {
         String id PK
-        String name UK
+        String name
         String email UK
         String password
     }
@@ -30,13 +30,14 @@ erDiagram
     }
 
     UserRole {
-        String id PK
-        String userId FK
-        String roleId FK
+        String userId PK, FK
+        Int roleId PK, FK
     }
 
     Link {
-        Int id PK
+        String id PK
+        String userId FK
+        Int domainId FK
         String title
         String backHalf "Pode ser criado aleatóriamente ou inserido"
         String destinationUrl
@@ -53,18 +54,20 @@ erDiagram
     }
 
     Tag {
-        Int id PK
+        String id PK
+        String userId FK
         String name
     }
-    %% Constraint: UNIQUE(userId, name)
+%% Constraint: UNIQUE(userId, name)
 
     LinkTag {
-        Int linkId PK, FK
-        Int tagId PK, FK
+        String linkId PK, FK
+        String tagId PK, FK
     }
 
     Click {
         Int id PK
+        String linkId FK
         Date createdAt
         String country
         String userAgent
