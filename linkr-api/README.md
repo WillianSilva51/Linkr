@@ -19,7 +19,7 @@ erDiagram
 
     User {
         String id PK
-        String name UK
+        String name
         String email UK
         String password
     }
@@ -53,14 +53,14 @@ erDiagram
     }
 
     Tag {
-        Int id PK
+        String id PK
         String name
     }
-    %% Constraint: UNIQUE(userId, name)
+%% Constraint: UNIQUE(userId, name)
 
     LinkTag {
         Int linkId PK, FK
-        Int tagId PK, FK
+        String tagId PK, FK
     }
 
     Click {
