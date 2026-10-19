@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -43,7 +44,7 @@ public class UserService {
         return new UserResponse(userEntity.getId(), userEntity.getName(), userEntity.getEmail());
     }
 
-    public UserResponse findUserById(String id) {
+    public UserResponse findUserById(UUID id) {
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 

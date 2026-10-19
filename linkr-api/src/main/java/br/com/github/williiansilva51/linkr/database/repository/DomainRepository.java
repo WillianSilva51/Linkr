@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface DomainRepository extends JpaRepository<DomainEntity, Integer> {
+public interface DomainRepository extends JpaRepository<DomainEntity, Long> {
     Optional<DomainEntity> findByDomainUrl(String domainUrl);
 }

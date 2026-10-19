@@ -10,6 +10,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "Link",
@@ -22,8 +23,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class LinkEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(length = 100)
     private String title;
