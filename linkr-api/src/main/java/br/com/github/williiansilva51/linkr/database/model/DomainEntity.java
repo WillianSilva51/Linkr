@@ -19,4 +19,12 @@ public class DomainEntity {
 
     @Column(unique = true, nullable = false, length = 50)
     private String domainUrl;
+
+    public void setDomainUrl(String domainUrl) {
+        if (domainUrl == null || domainUrl.isEmpty()) {
+            throw new IllegalArgumentException("Domain URL cannot be null or empty");
+        }
+
+        this.domainUrl = domainUrl;
+    }
 }
