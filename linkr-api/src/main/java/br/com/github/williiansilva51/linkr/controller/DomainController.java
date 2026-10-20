@@ -38,7 +38,7 @@ public class DomainController {
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDomain(@PathVariable Long id) {
-        domainService.deleteDomain(id);
+        domainService.deleteDomainById(id);
 
         return ResponseEntity.noContent().build();
     }

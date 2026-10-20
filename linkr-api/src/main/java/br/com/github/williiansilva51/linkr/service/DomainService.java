@@ -21,7 +21,7 @@ public class DomainService {
     private final CurrentUserProvider currentUserProvider;
 
     public DomainResponse createDomain(DomainRequest domain) {
-        validateAdminPrivileges("Only admins can create domains");
+        validateAdminPrivileges("Only admin users can create domains");
 
         if (domainRepository.existsByDomainUrl(domain.domainUrl())) {
             throw new DomainAlreadyExistsException("Domain already exists with url: " + domain.domainUrl());
@@ -56,7 +56,7 @@ public class DomainService {
     }
 
     public DomainResponse updateDomain(Long id, DomainRequest domainRequest) {
-        validateAdminPrivileges("Only admins can update domains");
+        validateAdminPrivileges("Only admin users can update domains");
 
         DomainEntity domainEntity = domainRepository.findById(id)
                 .orElseThrow(() -> new DomainNotFoundException("Domain not exists with id: " + id));
@@ -68,8 +68,8 @@ public class DomainService {
         return new DomainResponse(updatedDomain.getId(), updatedDomain.getDomainUrl());
     }
 
-    public void deleteDomain(Long id) {
-        validateAdminPrivileges("Only admins can delete domains");
+    public void deleteDomainById(Long id) {
+        validateAdminPrivileges("Only admin users can delete domains");
 
         if (!domainRepository.existsById(id)) {
             throw new DomainNotFoundException("Domain not exists with id: " + id);
