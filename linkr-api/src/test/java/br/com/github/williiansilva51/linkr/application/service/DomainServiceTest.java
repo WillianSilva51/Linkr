@@ -123,9 +123,9 @@ public class DomainServiceTest {
         @BeforeEach
         void setUp() {
             domainEntities = List.of(
-                    new DomainEntity(1L, "example.com"),
-                    new DomainEntity(2L, "example2.com"),
-                    new DomainEntity(3L, "example3.com")
+                    new DomainEntity(1L, "example.com", null),
+                    new DomainEntity(2L, "example2.com", null),
+                    new DomainEntity(3L, "example3.com", null)
             );
             domainUrl = "example.com";
             domain = createDomainValid();
