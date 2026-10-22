@@ -27,7 +27,7 @@ jobs:
       - name: Run tests
         working-directory: linkr-api
         run: |
-          mvn -B test | tee test-output.txt
+          set -o pipefail; mvn -B test | tee test-output.txt
 
       - name: Add Test Summary
         if: always()
