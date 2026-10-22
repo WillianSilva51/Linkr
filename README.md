@@ -142,6 +142,11 @@ erDiagram
 - [ ] Armazenamento do PNG/SVG do QR Code no bucket S3/MinIO e retorno da URL pública no DTO de resposta.
 - [ ] Ajuste no painel/endpoints para download e gestão do QR Code.
 
+### Fase 4: Analytics & Testes Automatizados & CI/CD 🔴 (Planejado)
+- [ ] Implementação de métricas avançadas de analytics e relatórios com Grafana e Prometheus.
+- [ ] Implementação de testes unitários e de integração com JUnit 5 e Mockito.
+- [ ] Configuração de pipeline CI/CD com GitHub Actions para build, testes e deploy.
+
 ## 🛠️ Como Executar o Projeto
 
 ### Pré-requisitos
@@ -184,8 +189,8 @@ A aplicação estará acessível em `http://localhost:8080/api`.
 
 Quando a aplicação estiver em execução, a documentação Swagger UI / OpenAPI pode ser acessada através do navegador:
 
-* **Swagger UI**: `http://localhost:8080/docs` ou `http://localhost:8080/swagger-ui/index.html`
-* **OpenAPI Docs**: `http://localhost:8080/v3/api-docs`
+* **Swagger UI**: `http://localhost:8080/api/docs` or `http://localhost:8080/api/swagger-ui/index.html`
+* **OpenAPI Docs**: `http://localhost:8080/api/v3/api-docs`
 
 ## 👨‍💻 Autor
 
