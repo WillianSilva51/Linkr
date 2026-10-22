@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "Domain")
 @Getter
@@ -19,4 +22,15 @@ public class DomainEntity {
 
     @Column(unique = true, nullable = false, length = 50)
     private String domainUrl;
+
+    @OneToMany(mappedBy = "domain", cascade = CascadeType.ALL)
+    private Set<LinkEntity> links = new HashSet<>();
+
+    public void setDomainUrl(String domainUrl) {
+        if (domainUrl == null || domainUrl.isEmpty()) {
+            throw new IllegalArgumentException("Domain URL cannot be null or empty");
+        }
+
+        this.domainUrl = domainUrl;
+    }
 }

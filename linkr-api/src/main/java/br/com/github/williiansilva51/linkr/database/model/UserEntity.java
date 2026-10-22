@@ -38,8 +38,14 @@ public class UserEntity implements UserDetails {
     @JoinTable(name = "User_Roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    Set<RolesEntity> roles = new HashSet<>();
+    private Set<RolesEntity> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<TagEntity> tags = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<LinkEntity> links = new HashSet<>();
+    
     public void updateUser(String name, String email, String password) {
         if (name != null && !name.isBlank()) this.name = name;
         if (email != null && !email.isBlank()) this.email = email;

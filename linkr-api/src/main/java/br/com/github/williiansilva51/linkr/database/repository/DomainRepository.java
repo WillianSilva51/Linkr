@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface DomainRepository extends JpaRepository<DomainEntity, Long> {
     Optional<DomainEntity> findByDomainUrl(String domainUrl);
+
+    boolean existsByDomainUrl(String domainUrl);
 }
