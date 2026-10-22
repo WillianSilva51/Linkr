@@ -214,21 +214,21 @@ public class DomainServiceTest {
     @DisplayName("Update Domain")
     class UpdateDomainTest {
         Long domainId;
-        DomainRequest domainRequest;
+        DomainEntity domain;
+        DomainRequest request;
 
         @BeforeEach
         void setUp() {
             domainId = 1L;
-            domainRequest = new DomainRequest("example.com");
+            domain = createDomainValid();
+            request = new DomainRequest("example.com");
         }
 
         @Test
         @DisplayName("Should update domain successfully")
         void shouldUpdateDomainSuccessfully() {
-            DomainEntity domain = createDomainValid();
-            DomainRequest request = new DomainRequest("newExample.com");
-
             when(currentUserProvider.isAdmin()).thenReturn(true);
+            when(domainRepository.existsByDomainUrl(request.domainUrl())).thenReturn(false);
             when(domainRepository.findById(domainId)).thenReturn(Optional.of(domain));
             when(domainRepository.save(domain)).thenReturn(domain);
 
@@ -238,6 +238,7 @@ public class DomainServiceTest {
             assertThat(domainResponse.domainUrl()).isEqualTo(request.domainUrl());
 
             verify(currentUserProvider).isAdmin();
+            verify(domainRepository).existsByDomainUrl(request.domainUrl());
             verify(domainRepository).findById(domainId);
             verify(domainRepository).save(domain);
             verifyNoMoreInteractions(currentUserProvider, domainRepository);
@@ -248,7 +249,7 @@ public class DomainServiceTest {
         void shouldThrowsForbiddenOperationWhenNonAdminUser() {
             when(currentUserProvider.isAdmin()).thenReturn(false);
 
-            assertThatThrownBy(() -> domainService.updateDomain(domainId, domainRequest))
+            assertThatThrownBy(() -> domainService.updateDomain(domainId, request))
                     .isInstanceOf(ForbiddenOperationException.class)
                     .hasMessage("Only admin users can update domains");
 
@@ -261,14 +262,32 @@ public class DomainServiceTest {
         @DisplayName("Should throws `DomainNotFoundException` when domain not found")
         void shouldThrowsDomainNotFoundExceptionWhenDomainNotFound() {
             when(currentUserProvider.isAdmin()).thenReturn(true);
+            when(domainRepository.existsByDomainUrl(request.domainUrl())).thenReturn(false);
             when(domainRepository.findById(domainId)).thenReturn(Optional.empty());
 
-            assertThatThrownBy(() -> domainService.updateDomain(domainId, domainRequest))
+            assertThatThrownBy(() -> domainService.updateDomain(domainId, request))
                     .isInstanceOf(DomainNotFoundException.class)
                     .hasMessage("Domain not exists with id: " + domainId);
 
             verify(currentUserProvider).isAdmin();
-            verify(domainRepository, never()).deleteById(domainId);
+            verify(domainRepository).existsByDomainUrl(request.domainUrl());
+            verify(domainRepository, never()).save(any(DomainEntity.class));
+            verifyNoMoreInteractions(currentUserProvider, domainRepository);
+        }
+
+        @Test
+        @DisplayName("Should throws `DomainAlreadyExistsException` when domain already exists")
+        void shouldThrowsDomainAlreadyExistsExceptionWhenDomainAlreadyExists() {
+            when(currentUserProvider.isAdmin()).thenReturn(true);
+            when(domainRepository.existsByDomainUrl(request.domainUrl())).thenReturn(true);
+
+            assertThatThrownBy(() -> domainService.createDomain(request))
+                    .isInstanceOf(DomainAlreadyExistsException.class)
+                    .hasMessage("Domain already exists with url: " + request.domainUrl());
+
+            verify(currentUserProvider).isAdmin();
+            verify(domainRepository).existsByDomainUrl(request.domainUrl());
+            verify(domainRepository, never()).save(any(DomainEntity.class));
             verifyNoMoreInteractions(currentUserProvider, domainRepository);
         }
     }

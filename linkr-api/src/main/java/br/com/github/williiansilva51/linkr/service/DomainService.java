@@ -58,8 +58,13 @@ public class DomainService {
     public DomainResponse updateDomain(Long id, DomainRequest domainRequest) {
         validateAdminPrivileges("Only admin users can update domains");
 
+        if (domainRepository.existsByDomainUrl(domainRequest.domainUrl())) {
+            throw new DomainAlreadyExistsException("Domain already exists with url: " + domainRequest.domainUrl());
+        }
+        
         DomainEntity domainEntity = domainRepository.findById(id)
                 .orElseThrow(() -> new DomainNotFoundException("Domain not exists with id: " + id));
+
 
         domainEntity.setDomainUrl(domainRequest.domainUrl());
 

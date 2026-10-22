@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,11 +31,11 @@ public class LinkEntity {
     @Column(nullable = false, length = 100)
     private String backHalf;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "domain_id", nullable = false)
     private DomainEntity domain;
 
@@ -46,8 +45,11 @@ public class LinkEntity {
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<TagEntity> tags = new HashSet<>();
 
+    @OneToMany(mappedBy = "link", fetch = FetchType.LAZY)
+    private Set<ClickEntity> clicks = new HashSet<>();
+
     @Column(nullable = false)
-    private URL destinationUrl;
+    private String destinationUrl;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
